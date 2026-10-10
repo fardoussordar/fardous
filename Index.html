@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রক্তদাতা নিবন্ধন ফরম - অনির্বাণ ফাউন্ডেশন</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Hind Siliguri for Bengali typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ffebee',
+                            100: '#ffcdd2',
+                            500: '#e53935',
+                            600: '#d32f2f',
+                            700: '#c62828',
+                            800: '#b71c1c',
+                            900: '#8e0000',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Hind Siliguri', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffebee 100%);
+            min-height: 100vh;
+        }
+        .form-card {
+            box-shadow: 0 10px 25px -5px rgba(211, 47, 47, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        /* Custom styling for custom inputs */
+        .radio-card input:checked + label {
+            border-color: #d32f2f;
+            background-color: #ffebee;
+            color: #b71c1c;
+        }
+    </style>
+</head>
+<body class="py-6 px-4 sm:px-6 lg:px-8 text-gray-800">
+
+    <div class="max-w-2xl mx-auto mb-6 text-center">
+        <!-- Logo & Title Header -->
+        <div class="inline-flex items-center justify-center p-3 bg-brand-800 text-white rounded-full shadow-lg mb-3">
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-800 tracking-tight">অনির্বাণ ফাউন্ডেশন</h1>
+        <p class="text-sm sm:text-base text-gray-600 mt-1 font-medium">Anirban Foundation • রক্তদান প্ল্যাটফর্ম</p>
+        <div class="h-1 w-20 bg-brand-600 mx-auto mt-2 rounded-full"></div>
+    </div>
+
+    <div class="max-w-2xl mx-auto bg-white rounded-2xl overflow-hidden form-card border border-red-100 mb-10">
+        
+        <!-- Top Info Header -->
+        <div class="bg-gradient-to-r from-brand-800 via-brand-700 to-brand-600 p-6 text-white text-center sm:text-left flex flex-col sm:flex-row items-center justify-between">
+            <div>
+                <h2 class="text-xl font-bold">রক্তদাতা নিবন্ধন ফরম</h2>
+                <p class="text-red-100 text-sm mt-1">আপনার এক ব্যাগ রক্ত বাঁচাতে পারে একটি মূল্যবান জীবন।</p>
+            </div>
+            <span class="mt-3 sm:mt-0 px-3 py-1 bg-white/20 backdrop-blur-md text-xs rounded-full border border-white/30 font-medium">
+                <i class="fa-solid fa-shield-heart mr-1"></i> ১০০০+ রেজিস্টার্ড দাতা
+            </span>
+        </div>
+
+        <form id="donorRegistrationForm" class="p-6 sm:p-8 space-y-6" onsubmit="handleFormSubmit(event)">
+            
+            <!-- Alert Message Container -->
+            <div id="errorAlert" class="hidden p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded text-sm mb-4">
+                <i class="fa-solid fa-circle-exclamation mr-2"></i> <span id="errorMessage">অনুগ্রহ করে সকল আবশ্যক ফিল্ড সঠিক তথ্য দিয়ে পূরণ করুন।</span>
+            </div>
+
+            <!-- Field 1: Full Name -->
+            <div>
+                <label for="fullName" class="block text-sm font-semibold text-gray-700 mb-1">
+                    ১. পূর্ণ নাম <span class="text-brand-600">*</span>
+                </label>
+                <div class="relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <input type="text" id="fullName" name="fullName" required placeholder="যেমন: আব্দুল্লাহ আল মামুন"
+                           class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm">
+                </div>
+            </div>
+
+            <!-- Field 2: Blood Group Dropdown -->
+            <div>
+                <label for="bloodGroup" class="block text-sm font-semibold text-gray-700 mb-1">
+                    ২. রক্তের গ্রুপ <span class="text-brand-600">*</span>
+                </label>
+                <div class="relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-600">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+                    <select id="bloodGroup" name="bloodGroup" required
+                            class="block w-full pl-10 pr-8 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
+                        <option value="" disabled selected>রক্তের গ্রুপ নির্বাচন করুন</option>
+                        <option value="A+">A+ (এ পজিটিভ)</option>
+                        <option value="A-">A- (এ নেগেটিভ)</option>
+                        <option value="B+">B+ (বি পজিটিভ)</option>
+                        <option value="B-">B- (বি নেগেটিভ)</option>
+                        <option value="AB+">AB+ (এবি পজিটিভ)</option>
+                        <option value="AB-">AB- (এবি নেগেটিভ)</option>
+                        <option value="O+">O+ (ও পজিটিভ)</option>
+                        <option value="O-">O- (ও নেগেটিভ)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Field 3: Phone Number -->
+                <div>
+                    <label for="phone" class="block text-sm font-semibold text-gray-700 mb-1">
+                        ৩. মোবাইল নম্বর <span class="text-brand-600">*</span>
+                    </label>
+                    <div class="relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <input type="tel" id="phone" name="phone" required placeholder="01712345678" maxlength="11"
+                               class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm">
+                    </div>
+                </div>
+
+                <!-- Field 4: Alternative/WhatsApp Number -->
+                <div>
+                    <label for="altPhone" class="block text-sm font-semibold text-gray-700 mb-1">
+                        ৪. বিকল্প নম্বর / হোয়াটসঅ্যাপ <span class="text-gray-400 font-normal">(ঐচ্ছিক)</span>
+                    </label>
+                    <div class="relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <input type="tel" id="altPhone" name="altPhone" placeholder="01812345678" maxlength="11"
+                               class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Field 5: District & Thana -->
+            <div>
+                <label for="districtThana" class="block text-sm font-semibold text-gray-700 mb-1">
+                    ৫. বর্তমান জেলা ও থানা <span class="text-brand-600">*</span>
+                </label>
+                <div class="relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <input type="text" id="districtThana" name="districtThana" required placeholder="যেমন: ধানমন্ডি, ঢাকা"
+                           class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm">
+                </div>
+            </div>
+
+            <!-- Field 6: Last Donation Date -->
+            <div>
+                <label for="lastDonationDate" class="block text-sm font-semibold text-gray-700 mb-1">
+                    ৬. সর্বশেষে রক্তদানের তারিখ <span class="text-gray-400 font-normal">(নতুন দাতা হলে খালি রাখুন)</span>
+                </label>
+                <div class="relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <input type="date" id="lastDonationDate" name="lastDonationDate"
+                           class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm text-gray-700">
+                </div>
+            </div>
+
+            <div class="border-t border-gray-100 pt-4 space-y-4">
+                
+                <!-- Field 7: Weight Question -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        ৭. আপনার ওজন কি অন্তত ৫০ কেজি বা তার বেশি? <span class="text-brand-600">*</span>
+                    </label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="radio-card">
+                            <input type="radio" id="weightYes" name="weightAbove50" value="হ্যাঁ" required class="hidden">
+                            <label for="weightYes" class="flex items-center justify-center p-2.5 border border-gray-300 rounded-lg cursor-pointer text-sm font-medium transition-all hover:border-brand-300">
+                                <i class="fa-solid fa-check-circle mr-2 text-green-600"></i> হ্যাঁ
+                            </label>
+                        </div>
+                        <div class="radio-card">
+                            <input type="radio" id="weightNo" name="weightAbove50" value="না" class="hidden">
+                            <label for="weightNo" class="flex items-center justify-center p-2.5 border border-gray-300 rounded-lg cursor-pointer text-sm font-medium transition-all hover:border-brand-300">
+                                <i class="fa-solid fa-xmark-circle mr-2 text-red-500"></i> না
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Field 8: Chronic Illness -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        ৮. কোনো দীর্ঘমেয়াদী বা জটিল স্বাস্থ্য সমস্যা আছে? <span class="text-brand-600">*</span>
+                    </label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="radio-card">
+                            <input type="radio" id="diseaseNo" name="hasDisease" value="না" required class="hidden">
+                            <label for="diseaseNo" class="flex items-center justify-center p-2.5 border border-gray-300 rounded-lg cursor-pointer text-sm font-medium transition-all hover:border-brand-300">
+                                <i class="fa-solid fa-shield-halved mr-2 text-green-600"></i> না (সুস্থ)
+                            </label>
+                        </div>
+                        <div class="radio-card">
+                            <input type="radio" id="diseaseYes" name="hasDisease" value="হ্যাঁ" class="hidden">
+                            <label for="diseaseYes" class="flex items-center justify-center p-2.5 border border-gray-300 rounded-lg cursor-pointer text-sm font-medium transition-all hover:border-brand-300">
+                                <i class="fa-solid fa-triangle-exclamation mr-2 text-amber-500"></i> হ্যাঁ (সমস্যা আছে)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Field 9: Emergency Willingness -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        ৯. জরুরি প্রয়োজনে কল করলে রক্ত দিতে ইচ্ছুক? <span class="text-brand-600">*</span>
+                    </label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="radio-card">
+                            <input type="radio" id="willingYes" name="isWilling" value="হ্যাঁ" required class="hidden">
+                            <label for="willingYes" class="flex items-center justify-center p-2.5 border border-gray-300 rounded-lg cursor-pointer text-sm font-medium transition-all hover:border-brand-300">
+                                <i class="fa-solid fa-thumbs-up mr-2 text-brand-600"></i> হ্যাঁ, ইচ্ছুক
+                            </label>
+                        </div>
+                        <div class="radio-card">
+                            <input type="radio" id="willingNo" name="isWilling" value="না" class="hidden">
+                            <label for="willingNo" class="flex items-center justify-center p-2.5 border border-gray-300 rounded-lg cursor-pointer text-sm font-medium transition-all hover:border-brand-300">
+                                <i class="fa-solid fa-thumbs-down mr-2 text-gray-400"></i> না
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-4">
+                <button type="submit" id="submitBtn"
+                        class="w-full bg-brand-700 hover:bg-brand-800 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center text-base">
+                    <i class="fa-solid fa-paper-plane mr-2"></i> তথ্য জমা দিন
+                </button>
+            </div>
+
+            <div class="text-center">
+                <p class="text-xs text-gray-500">
+                    <i class="fa-solid fa-lock text-gray-400 mr-1"></i> আপনার প্রদানকৃত তথ্য অনির্বাণ ফাউন্ডেশনের জরুরি ডেটাবেজে সম্পূর্ণ সুরক্ষিত থাকবে।
+                </p>
+            </div>
+
+        </form>
+
+        <!-- Success Modal / Acknowledgement Card (Initially Hidden) -->
+        <div id="successCard" class="hidden p-8 text-center space-y-5">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto text-3xl shadow-inner">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <div>
+                <h3 class="text-2xl font-bold text-gray-800">অভিনন্দন!</h3>
+                <p class="text-gray-600 mt-1">অনির্বাণ ফাউন্ডেশনের রক্তদাতা ডেটাবেজে আপনার তথ্য সফলভাবে সংরক্ষিত হয়েছে।</p>
+            </div>
+            <div class="bg-red-50 p-4 rounded-xl border border-red-100 text-left max-w-md mx-auto text-sm space-y-2">
+                <p class="font-semibold text-brand-800 border-b border-red-200 pb-1">নিবন্ধিত তথ্য সংক্ষেপ:</p>
+                <p><strong>নাম:</strong> <span id="resName">--</span></p>
+                <p><strong>রক্তের গ্রুপ:</strong> <span id="resBlood" class="text-brand-700 font-bold">--</span></p>
+                <p><strong>মোবাইল:</strong> <span id="resPhone">--</span></p>
+                <p><strong>অবস্থান:</strong> <span id="resLocation">--</span></p>
+            </div>
+            <div class="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
+                <button onclick="resetForm()" class="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg text-sm transition">
+                    <i class="fa-solid fa-plus mr-1"></i> নতুন নিবন্ধন করুন
+                </button>
+                <button onclick="toggleDataModal()" class="px-5 py-2.5 bg-brand-700 hover:bg-brand-800 text-white font-semibold rounded-lg text-sm transition">
+                    <i class="fa-solid fa-database mr-1"></i> সংরক্ষিত ডেটা দেখুন (Admin View)
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Data Preview Modal (Local Storage Test Database) -->
+    <div id="dataModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-hidden flex flex-col shadow-2xl">
+            <div class="p-4 bg-brand-800 text-white flex justify-between items-center">
+                <h3 class="font-bold text-lg"><i class="fa-solid fa-database mr-2"></i> অনির্বাণ ফাউন্ডেশন - ডেটাবেজ ভিউয়ার</h3>
+                <button onclick="toggleDataModal()" class="text-white/80 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-4 overflow-y-auto flex-1">
+                <div class="flex justify-between items-center mb-3">
+                    <p class="text-xs text-gray-500">* এটি আপনার ডিভাইসের LocalStorage মেমোরিতে রক্ষিত ডেটা দেখাচ্ছে।</p>
+                    <button onclick="clearDatabase()" class="text-xs bg-red-100 text-red-600 hover:bg-red-200 px-2.5 py-1 rounded">
+                        <i class="fa-solid fa-trash mr-1"></i> ডেটা পরিষ্কার করুন
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-gray-100 text-gray-700">
+                                <th class="p-2 border">#</th>
+                                <th class="p-2 border">নাম</th>
+                                <th class="p-2 border">গ্রুপ</th>
+                                <th class="p-2 border">মোবাইল</th>
+                                <th class="p-2 border">জেলা/থানা</th>
+                                <th class="p-2 border">ইচ্ছুক?</th>
+                            </tr>
+                        </thead>
+                        <tbody id="databaseTableBody">
+                            <!-- Rows populated via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="p-3 bg-gray-50 border-t text-right">
+                <button onclick="toggleDataModal()" class="px-4 py-1.5 bg-gray-600 text-white text-sm rounded-lg">বন্ধ করুন</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form Submission Logic
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const errorAlert = document.getElementById('errorAlert');
+            const errorMessage = document.getElementById('errorMessage');
+            errorAlert.classList.add('hidden');
+
+            // Form Field Data Gathering
+            const fullName = form.fullName.value.trim();
+            const bloodGroup = form.bloodGroup.value;
+            const phone = form.phone.value.trim();
+            const altPhone = form.altPhone.value.trim();
+            const districtThana = form.districtThana.value.trim();
+            const lastDonationDate = form.lastDonationDate.value;
+            const weightAbove50 = form.weightAbove50.value;
+            const hasDisease = form.hasDisease.value;
+            const isWilling = form.isWilling.value;
+
+            // Mobile Validation (Bangladeshi Format Test: 11 Digits starting with 01)
+            const phoneRegex = /^01[3-9]\d{8}$/;
+            if (!phoneRegex.test(phone)) {
+                errorMessage.innerText = "অনুগ্রহ করে ১১ ডিজিটের সঠিক মোবাইল নম্বর প্রদান করুন (যেমন: 01712345678)।";
+                errorAlert.classList.remove('hidden');
+                return;
+            }
+
+            // Create Donor Object
+            const donorData = {
+                id: Date.now(),
+                fullName,
+                bloodGroup,
+                phone,
+                altPhone: altPhone || 'নাই',
+                districtThana,
+                lastDonationDate: lastDonationDate || 'নতুন দাতা',
+                weightAbove50,
+                hasDisease,
+                isWilling,
+                submittedAt: new Date().toLocaleString('bn-BD')
+            };
+
+            // Save to LocalStorage Simulation
+            saveToLocalStorage(donorData);
+
+            // Display Output
+            document.getElementById('resName').innerText = fullName;
+            document.getElementById('resBlood').innerText = bloodGroup;
+            document.getElementById('resPhone').innerText = phone;
+            document.getElementById('resLocation').innerText = districtThana;
+
+            // UI Transition
+            form.classList.add('hidden');
+            document.getElementById('successCard').classList.remove('hidden');
+        }
+
+        // Save Data in Browser
+        function saveToLocalStorage(data) {
+            let donors = JSON.parse(localStorage.getItem('anirban_donors') || '[]');
+            donors.unshift(data);
+            localStorage.setItem('anirban_donors', JSON.stringify(donors));
+        }
+
+        // Reset Form
+        function resetForm() {
+            document.getElementById('donorRegistrationForm').reset();
+            document.getElementById('donorRegistrationForm').classList.remove('hidden');
+            document.getElementById('successCard').classList.add('hidden');
+            document.getElementById('errorAlert').classList.add('hidden');
+        }
+
+        // Toggle Admin Modal
+        function toggleDataModal() {
+            const modal = document.getElementById('dataModal');
+            modal.classList.toggle('hidden');
+            if(!modal.classList.contains('hidden')) {
+                loadDatabaseTable();
+            }
+        }
+
+        // Render Database Records
+        function loadDatabaseTable() {
+            const tbody = document.getElementById('databaseTableBody');
+            const donors = JSON.parse(localStorage.getItem('anirban_donors') || '[]');
+            
+            if (donors.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-gray-500">এখনো কোনো নিবন্ধিত রক্তদাতার ডেটা পাওয়া যায়নি।</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = donors.map((d, index) => `
+                <tr class="hover:bg-gray-50 border-b">
+                    <td class="p-2 font-semibold">${index + 1}</td>
+                    <td class="p-2 font-medium text-gray-800">${escapeHtml(d.fullName)}</td>
+                    <td class="p-2"><span class="px-2 py-0.5 bg-red-100 text-red-700 font-bold rounded-full text-xs">${escapeHtml(d.bloodGroup)}</span></td>
+                    <td class="p-2">${escapeHtml(d.phone)}</td>
+                    <td class="p-2">${escapeHtml(d.districtThana)}</td>
+                    <td class="p-2">${d.isWilling === 'হ্যাঁ' ? '<span class="text-green-600 font-bold">হ্যাঁ</span>' : '<span class="text-gray-400">না</span>'}</td>
+                </tr>
+            `).join('');
+        }
+
+        function clearDatabase() {
+            if(confirm("আপনি কি নিশ্চিত যে সমস্ত তথ্য মুছে ফেলতে চান?")) {
+                localStorage.removeItem('anirban_donors');
+                loadDatabaseTable();
+            }
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+    </script>
+</body>
+</html>
